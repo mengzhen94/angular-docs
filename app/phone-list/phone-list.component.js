@@ -4,32 +4,26 @@ angular.
   module('phoneList').
   component('phoneList', {
     templateUrl : 'phone-list/phone-list.template.html',
-    controller: function PhoneListController() {
-      this.phones = [
-        {
-          name: 'Nexus S',
-          snippet: 'Fast just got faster with Nexus S.',
-          age: 1
-        }, {
-          name: 'Motorola XOOM™ with Wi-Fi',
-          snippet: 'The Next, Next Generation tablet.',
-          age: 2
-        }, {
-          name: 'MOTOROLA XOOM™',
-          snippet: 'The Next, Next Generation tablet.',
-          age: 3
-        }
-      ];
+    controller:['$http',
+      function PhoneListController($http) {
+      /*
+        Since we are making the assignment of the phones property in a 
+        callback function, where the this value is not defined, 
+        we also introduce a local variable called self that points back 
+        to the controller instance.
+      */
+      var self = this;
+      self.orderProp = 'age';
 
       /*
-         This is because we set orderProp to 'age' in the controller. 
-         So the binding works in the direction from our model to the UI.
-          Now if you select "Alphabetically" in the drop-down menu, 
-          the model will be updated as well and the phones will be reordered. 
-          That is the data-binding doing its job in the opposite direction — 
-          from the UI to the model.
+      Notice that AngularJS detected the JSON response and parsed it for us 
+      into the data property of the response object passed to our callback!
       */
 
-      this.orderProp = 'age';
+      $http.get('phones/phones.json').then(function(response){
+        self.phones = response.data;
+      });
+
     }
-  });
+  ]
+});
