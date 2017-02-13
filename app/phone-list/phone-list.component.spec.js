@@ -1,19 +1,26 @@
 'use strict';
 
 describe('phoneList', function(){
-	//Before each test we tell AngularJS to load the phonecatApp module.
+	// Load the module that contains the `phoneList` component before each test
 	beforeEach(module('phoneList'));
-
-	describe('PhoneListController', function(){
 	
-	//We ask AngularJS to inject the $controller service into our test function.
-	it('should create a "phone" model with 3 phones',
-		inject(function($componentController){
-			//The test retrieves the controller associated 
-			//with the phoneList component
-			var ctrl = $componentController('phoneList');
+	// Test the controller
+	describe('PhoneListController', function(){
 
-			expect(ctrl.phones.length).toBe(3);
+		var ctrl;
+
+		beforeEach(inject(function($componentController){
+			ctrl = $componentController('phoneList');
 		}));
+	
+		//We ask AngularJS to inject the $controller service into our test function.
+		it('should create a "phone" model with 3 phones', function(){
+			expect(ctrl.phones.length).toBe(3);
+		});
+
+		it('should set a default value for the "orderProp" to be age', function(){
+			expect(ctrl.orderProp).toBe('age');
+		});
+
 	});
 });
