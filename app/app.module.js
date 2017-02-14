@@ -10,5 +10,6 @@ angular.module('phonecatApp', [
 	'ngRoute',
   	// ...which depends on the `phoneList` module
   	'phoneDetail',
+  	'core',
   	'phoneList'
 ]);
