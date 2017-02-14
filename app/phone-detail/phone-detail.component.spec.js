@@ -8,11 +8,15 @@ describe('phoneDetail', function(){
 	describe('phoneDetailController', function(){
 
 		var $httpBackend, ctrl;
+		var xyzPhoneData = {
+			name : 'phone xyz',
+			images : ['image/url1.png', 'image/url2.png']
+		};
 
 		beforeEach(inject(function($componentController, _$httpBackend_, $routeParams){
 			$httpBackend = _$httpBackend_;
 
-			$httpBackend.expectGET('phones/xyz.json').respond({name: 'phone XYZ'});
+			$httpBackend.expectGET('phones/xyz.json').respond(xyzPhoneData);
             $routeParams.phoneId = 'xyz';
 
 			ctrl = $componentController('phoneDetail');
@@ -22,7 +26,7 @@ describe('phoneDetail', function(){
 			expect(ctrl.phone).toBeUndefined();
 
 			$httpBackend.flush();
-			expect(ctrl.phone).toEqual({name: 'phone XYZ'});
+			expect(ctrl.phone).toEqual(xyzPhoneData);
 		});
 		
 	});
