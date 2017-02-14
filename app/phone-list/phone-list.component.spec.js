@@ -12,6 +12,11 @@ describe('phoneList', function(){
 		beforeEach(inject(function($componentController, _$httpBackend_){
 			$httpBackend = _$httpBackend_;
 
+			/*
+			Use the $httpBackend.expectGET() method to train the $httpBackend service to expect 
+			an incoming HTTP request and tell it what to respond with.
+			*/
+
 			$httpBackend.expectGET('phones/phones.json')
                   .respond([{name: 'Nexus S'}, {name: 'Motorola DROID'}]);
 
